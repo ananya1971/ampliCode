@@ -9,6 +9,7 @@ const ChatUI = (props) => {
   ]);
   const [newMessage, setNewMessage] = useState('');
   const [results, setResults] = useState('');
+  const [sending, setSending] = useState(false)
 
   useEffect(() => {
     props.results.map((item) => {
@@ -20,10 +21,12 @@ const ChatUI = (props) => {
   const sendMessage = () => {
     if (newMessage.trim() === '') return;
     const userMsg = newMessage
+    setSending(true)
     setMessages([...messages, { text: newMessage, sender: 'user' }]);
     setNewMessage('')
     fetchChatResponse(userMsg, results).then((res) => {
         setMessages(prevState => [...prevState, { text: res.text, sender: 'bot' }]);
+        setSending(false)
     })
   };
 
@@ -43,7 +46,7 @@ const ChatUI = (props) => {
           onChange={e => setNewMessage(e.target.value)}
           placeholder="Type a message..."
         />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage} disabled={sending}>Send</button>
       </div>
     </div>
   );
