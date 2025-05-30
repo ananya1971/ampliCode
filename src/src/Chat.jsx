@@ -13,7 +13,7 @@ const ChatUI = (props) => {
 
   useEffect(() => {
     props.results.map((item) => {
-        const result = item.subject + ': ' + item.rating + ', '
+        const result = item.subject + ': ' + item.rating + ' This is how well I can learn from the subject, '
         setResults(prevState => prevState + result)
     })
   }, [])
