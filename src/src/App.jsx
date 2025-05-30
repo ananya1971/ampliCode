@@ -10,7 +10,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4 font-sans">
+    <div className="bg-gray-100 flex flex-col items-center justify-center p-4 font-sans h-screen w-screen">
       <header className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">Peer Learning Platform</h1>
         <p className="text-lg text-gray-600">Discover your strengths and areas for growth!</p>
