@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import ChatUI from './Chat';
 
 function App() {
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [quizResults, setQuizResults] = useState([]);
 
   const handleQuizSubmit = (results) => {
+    console.log(results)
     setQuizResults(results);
     setQuizCompleted(true);
   };
@@ -20,7 +22,8 @@ function App() {
         {!quizCompleted ? (
           <Quiz onQuizSubmit={handleQuizSubmit} />
         ) : (
-          <QuizResults results={quizResults} onRetakeQuiz={() => setQuizCompleted(false)} />
+          <ChatUI results={quizResults} />
+          // <QuizResults results={quizResults} onRetakeQuiz={() => setQuizCompleted(false)} />
         )}
       </main>
     </div>
@@ -41,20 +44,20 @@ function Quiz({ onQuizSubmit }) {
   ];
 
   const [ratings, setRatings] = useState(
-    subjects.reduce((acc, subject) => ({ ...acc, [subject]: 3 }), {}) 
+    subjects.reduce((acc, subject) => ({ ...acc, [subject]: 3 }), {})
   );
 
   const handleRatingChange = (subject, value) => {
     setRatings((prevRatings) => ({
       ...prevRatings,
-      [subject]: parseInt(value), 
+      [subject]: parseInt(value),
     }));
   };
 
-  
+
   const handleSubmit = (e) => {
-    e.preventDefault(); 
-    
+    e.preventDefault();
+
     const results = subjects.map((subject) => ({
       subject,
       rating: ratings[subject],
@@ -62,11 +65,11 @@ function Quiz({ onQuizSubmit }) {
         ratings[subject] >= 4
           ? 'Strength'
           : ratings[subject] <= 2
-          ? 'Weakness'
-          : 'Neutral',
+            ? 'Weakness'
+            : 'Neutral',
     }));
 
-    onQuizSubmit(results); 
+    onQuizSubmit(results);
   };
 
   return (
@@ -115,7 +118,7 @@ function Quiz({ onQuizSubmit }) {
 
 
 function QuizResults({ results, onRetakeQuiz }) {
- 
+
   const strengths = results.filter((item) => item.status === 'Strength');
   const weaknesses = results.filter((item) => item.status === 'Weakness');
 
