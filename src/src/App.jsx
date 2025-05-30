@@ -6,7 +6,6 @@ function App() {
   const [quizResults, setQuizResults] = useState([]);
 
   const handleQuizSubmit = (results) => {
-    console.log(results)
     setQuizResults(results);
     setQuizCompleted(true);
   };
